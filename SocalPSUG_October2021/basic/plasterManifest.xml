@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<plasterManifest schemaVersion="1.2" templateType="Project" xmlns="http://www.microsoft.com/schemas/PowerShell/Plaster/v1">
+  <metadata>
+    <name>Demo1</name>
+    <id>b0623f97-d1c1-4396-8a29-5ca4c7ac6e6f</id>
+    <version>0.0.1</version>
+    <title>Working with Plaster</title>
+    <description>Demo for SoCal PSUG for Plaster</description>
+    <author>James Petty</author>
+    <tags></tags>
+  </metadata>
+  <parameters>
+    <parameter prompt="Name of your module" type="text" name="ModuleName" />
+    <parameter prompt="Brief Description of your module" type="text" name="ModuleDesc" />
+    <parameter prompt="Version Number" type="text" name="ModuleVersion" default="0.0.1" />
+    <parameter prompt="Author" type="user-fullname" name="ModuleAuthor" />
+    <parameter name='License' type='choice' default='2' store='text' prompt='Select a license for your module'>
+      <choice label='&amp;Apache' help="Adds an Apache license file." value="Apache" />
+      <choice label='&amp;MIT' help="Adds an MIT license file." value="MIT" />
+      <choice label='&amp;None' help="No license specified." value="None" />
+    </parameter>
+    <parameter prompt="Please select folders to include" type="multichoice" name="FunctionFolders" default="0,1,2">
+      <choice help="Adds a Public folder to module root" value="Public" label="&amp;Public" />
+      <choice help="Adds a Private folder to module root" value="Private" label="&amp;Private" />
+      <choice help="Adds a Docs folder to module root" value="Docs" label="&amp;Docs" />
+      <choice help="Adds a DSCResource folder to module root" value="DSCResources" label="&amp;DSCResources" />
+    </parameter>
+  </parameters>
+  <content>
+    <newModuleManifest destination='${PLASTER_PARAM_ModuleName}.psd1' moduleVersion='$PLASTER_PARAM_ModuleVersion' rootModule='${PLASTER_PARAM_ModuleName}.psm1' author='$PLASTER_PARAM_ModuleAuthor' description='$PLASTER_PARAM_ModuleDesc' />
+    <file source='template.psm1' destination='${PLASTER_PARAM_ModuleName}.psm1' />
+    <templateFile condition="$PLASTER_PARAM_License -eq 'MIT'" source='Licenses\MIT.md' destination='License.md' />
+    <templateFile condition="$PLASTER_PARAM_License -eq 'Apache'" source='Licenses\Apache.md' destination='License.md' />
+    <message>Creating you folders for module: </message>
+    <file source='' destination='${PLASTER_PARAM_ModuleName}\Public\' condition='$PLASTER_PARAM_FunctionFolders -contains "Public"' />
+    <file source='' destination='${PLASTER_PARAM_ModuleName}\Private\' condition='$PLASTER_PARAM_FunctionFolders -contains "Private"' />
+    <file source='' destination='${PLASTER_PARAM_ModuleName}\Docs\' condition='$PLASTER_PARAM_FunctionFolders -contains "Docs"' />
+    <file source='' destination='${PLASTER_PARAM_ModuleName}\DSCResources\' condition='$PLASTER_PARAM_FunctionFolders -contains "DSCResources"' />
+  </content>
+</plasterManifest>

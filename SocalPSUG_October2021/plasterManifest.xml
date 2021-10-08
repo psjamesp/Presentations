@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<plasterManifest
+  schemaVersion="1.2"
+  templateType="Project" xmlns="http://www.microsoft.com/schemas/PowerShell/Plaster/v1">
+  <metadata>
+    <name>Demo1</name>
+    <id>ccf8a7a0-861e-4e52-aaf6-9fb6e98ed737</id>
+    <version>0.0.1</version>
+    <title>Working with Plaster</title>
+    <description>Demo for SoCal PSUG for Plaster</description>
+    <author>James Petty</author>
+    <tags></tags>
+  </metadata>
+  <parameters></parameters>
+  <content></content>
+</plasterManifest>
